@@ -1,0 +1,126 @@
+.login_ext {
+    text-align: center;
+    margin-top: 20px;
+}
+.price {
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: .3125em;
+    padding: 5px;
+    background-color: #fff;
+}
+.list_image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    float: left;
+    height: 100%;
+    width: 80px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.panel-welcome {
+    margin-bottom: 30px;
+}
+.jumbo-image {
+    height: 200px;
+    width: 100%;
+    background-size: contain;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.cntr {
+    text-align: center;
+}
+
+.blue_button {
+    border: 1px solid #044062!important /*{b-bup-border}*/;
+    background: #396b9e!important /*{b-bup-background-color}*/;
+    font-weight: bold!important;
+    color: #fff!important /*{b-bup-color}*/;
+    text-shadow: 0 /*{b-bup-shadow-x}*/ 1px /*{b-bup-shadow-y}*/ 1px /*{b-bup-shadow-radius}*/ #194b7e!important /*{b-bup-shadow-color}*/;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/))!important; /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/)!important; /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/)!important; /* FF3.6 */
+    background-image: -ms-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/)!important; /* IE10 */
+    background-image: -o-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/)!important; /* Opera 11.10+ */
+    background-image: linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/)!important;
+}
+        
+@media only screen and (min-width: 600px) {
+    #gmap {
+        width:78%;
+        float:left;
+    }
+    /*#ausleihen_form label {
+        float: left;
+        width: 20%;
+        margin: .5em 2% 0 0;
+        padding: .7em 0;
+    }*/
+
+    #ausleihen_form div.ui-select {
+        display: inline-block;
+        width: 25%;
+        padding-left: 2%;
+    }
+}
+.startseite .moebel {
+    background-color: red;
+    background-image: url(../img/mbl_jumbo.png);
+}
+.startseite .neuz div.blk {
+    background-color: red;
+    background-image: url(../img/neu_jumbo.png);
+}
+.startseite .neuz {
+    padding-right: 3px;
+}
+.startseite .req div.blk {
+    background-color: red;
+    background-image: url(../img/req_jumbo.png);
+}
+.startseite .req {
+    padding-left: 3px;
+}
+.startseite .ver {
+    padding-right: 3px;
+
+}
+.startseite .ver div.blk {
+    background-color: #1db725;
+    background-image: url(../img/ver_jumbo.png);
+    
+}
+.startseite .gem {
+    padding-left: 3px;
+}
+.startseite .gem div.blk {
+    padding-left: 3px;
+    background-color: #bc1818;
+    background-image: url(../img/gem_jumbo.png);
+}
+.startseite .blk {
+    height: 100px;
+    text-align: right;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    font-weight: bold;
+    color: #fff;
+    padding: 10px;    
+    margin-bottom: 6px;
+    background-size:   cover; 
+    background-position: center center; 
+    background-repeat: no-repeat;
+}
+.startseite div > a {
+    display: block;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+.startseite > a {
+    display: block;
+    color: #fff !important;
+    text-decoration: none !important;
+}
