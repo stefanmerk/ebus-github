@@ -1,0 +1,18 @@
+{% block headerTitle -%}Dashboard{%- endblock %}
+{% extends '::base.html.twig' %}
+{% block body -%}
+<div class="startseite">
+<a class="ui-grid-solo moebel blk" href="{{ path('furniture')}}">
+	<div class="ui-block-a">Alle Möbel</div>
+</a>
+<div class="ui-grid-a">
+	<a class="ui-block-a neuz" href="{{ path('furniture_new') }}"><div class="blk">Neues Möbel</div></a>
+	<a class="ui-block-b req" href="{{ path('borrows') }}"><div class="blk">Anfragen</div></a>
+</div><!-- /grid-a -->
+
+<div class="ui-grid-a">
+	<a class="ui-block-a ver" href="{{ path('vermietete') }}"><div class="blk">Vermietete Möbel</div></a>
+	<a class="ui-block-b gem" href="{{ path('mieten') }}"><div class="blk">Gemietete Möbel</div></a>
+</div><!-- /grid-a -->
+</div>
+{% endblock %}

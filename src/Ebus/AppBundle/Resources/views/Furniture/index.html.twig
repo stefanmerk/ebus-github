@@ -1,0 +1,26 @@
+{% block headerTitle -%}Möbel{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<form class="ui-filterable">
+    <input id="rich-autocomplete-input" data-type="search" placeholder="Filtern">
+</form>
+    <ul data-role="listview" data-filter="true" data-inset="true" data-input="#rich-autocomplete-input">
+        {% for furniture in furnitures %}
+            <li class="ui-li-has-thumb" data-filtertext="{{furniture.category.name}}: {{furniture.condition.name}}: {{furniture.name}}: {{furniture.user.address}}: {{furniture.description}}">
+                <a href="{{ path('furniture_show', { 'id': furniture.id }) }}" rel="external">
+                    <!--<img src="">-->
+                    <div class="list_image" style="background-image: url({% if furniture.image %}{{ furniture.webpath | imagine_filter('my_thumb')  }}{% else %}/res/img/keinBild.gif{% endif %})"></div>
+                    <p class="ui-li-aside price"><strong>{{ furniture.price|number_format(2, ',', '.') }} €</strong></p>
+                    <h2>{{ furniture.name }}</h2>
+                    <p>Zustand: {{furniture.condition.name}}</p>
+                    <p>Kategorie: {{furniture.category.name}}</p>
+                    <p>{{ furniture.description }}</p>
+                    <p><em>{{ furniture.user.address }}</em></p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+        
+    <!--a href="{{ path('furniture_new') }}" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-plus" data-theme="b">Vermieten</a--> 
+{% endblock %}

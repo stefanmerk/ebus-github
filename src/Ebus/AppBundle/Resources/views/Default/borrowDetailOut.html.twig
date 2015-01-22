@@ -1,0 +1,21 @@
+{% block headerTitle -%}Bestätigung der Anfrage für {{ borrow.furniture.name }}{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div data-role="fieldcontain">
+        <label for="name">Dauer</label>
+        <input type="text" name="name" id="name" value="{{ borrow.daysOfRental }} Tage" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Zeitraum</label>
+        <input type="text" name="name" id="name" value="{{ borrow.dateFrom|date("d.m.Y") }} - {{ borrow.dateUntil|date("d.m.Y") }}" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Gesamtkosten</label>
+        <input type="text" name="name" id="name" value="{{  borrow.price|number_format(2, ',', '.') }} €" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Vermieter</label>
+        <input type="text" name="name" id="name" value="{{ borrow.lessor.firstName }} {{ borrow.lessor.lastName }}" readonly/>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% block headerTitle -%}{{ entity.name }} - bearbeiten{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <a data-role="button" href="{{ path('disable_furniture', {'id':entity.id}) }}">Löschen</a>
+
+    {{ form_start(edit_form, {'attr': {'data-ajax': 'false'}}) }}
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Name') }}
+                {{ form_widget(edit_form.name) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Beschreibung') }}
+                {{ form_widget(edit_form.description) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Bild') }}
+                {{ form_widget(edit_form.file) }}
+                {% if entity.image %}
+                    <div class="jumbo-image" style="background-color: transparent;background-image: url({{ entity.webpath }});"></div>
+                {% else %}
+                    <div class="jumbo-image" style="background-color: transparent;padding-left:22%;clear:both"><img src="/res/img/keinBild.gif" style="width:200px;height:200px"></div>
+                {% endif %}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Preis') }}
+                {{ form_widget(edit_form.price) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Kategorie') }}
+                {{ form_widget(edit_form.category) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(edit_form, 'Zustand') }}
+                {{ form_widget(edit_form.condition) }}
+            </div>
+            {{ form_widget(edit_form.submit, {'attr': {'class': 'blue_button'}, 'label' : 'Aktualisieren'}) }}
+            {{ form_rest(edit_form) }}
+        {{ form_end(edit_form
+) }}
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends '::base.html.twig' %}
+{% block headerTitle -%}{{ entity.name }}{%- endblock %}
+{% block headerButton %}
+{% if entity.user == app.user %}<a href="{{ path('furniture_edit', {'id':entity.id}) }}" data-icon="gear" class="ui-btn-right">Editieren</a>{% endif %} 
+{% endblock %}
+
+{% block stylesheets -%}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/res/css/idangerous.swiper.css">
+{%- endblock %}
+{% block javascripts -%}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/res/js/idangerous.swiper.js"></script>
+    <script src="/res/js/swipe.js"></script>
+{%- endblock %}
+
+{% block body -%}
+    <div class="jumbo-image" style="background-color: transparent;background-image: url({% if entity.image %}{{ entity.webpath }}{% else %}/res/img/keinBild.gif{% endif %});"></div>
+    <div data-role="fieldcontain">
+        <label for="name">Vermieter</label>
+        <input type="text" name="name" id="name" value="{{ entity.user.fullName}}" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Beschreibung</label>
+        <textarea name="name" id="name" readonly>{{ entity.description }}</textarea>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Preis pro Tag</label>
+        <input type="text" name="name" id="name" value="{{ entity.price }}" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Zustand</label>
+        <input type="text" name="name" id="name" value="{{ entity.condition.name }}" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">Kategorie</label>
+        <input type="text" name="name" id="name" value="{{ entity.category.name }}" readonly/>
+    </div>
+    {% if entity.ratings|length > 0 %}
+    <div data-role="fieldcontain" style="max-height:150px">
+        <label for="name">Bewertungen (Slide zum Blättern)</label>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for rating in entity.ratings %}
+                    <div class="swiper-slide">
+                        <div class="ui-body ui-body-a ui-corner-all">
+                            {{ rating.user.fullName }}
+                            {% for i in 1..rating.stars %}
+                                <i class="fa fa-star"></i>
+                            {% endfor %}
+                            {% if 5-rating.stars > 0 %}
+                            {% for i in 1..5-rating.stars %}
+                                <i class="fa fa-star-o"></i>
+                            {% endfor %}{% endif %} <small>{{ rating.stars}} von 5</small>
+                            <p>{{ rating.comment }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!--<div data-role="fieldcontain">
+        <label for="name">Aktiv:</label>
+        <input type="text" name="name" id="name" value="{{ entity.active }}" readonly/>
+    </div>-->
+    <div data-role="fieldcontain">
+        <label for="name">Standort</label>
+        <div id="gmap">
+            <div id="map-canvas" style="width:100%;height:250px;"></div>
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><button class="blue_button" onclick="getLocation()" id="gps">Route berechnen</button></div>
+                <div class="ui-block-b"><a href="http://maps.google.com/maps?q={{entity.user.address|url_encode}}" target="_blank" class="ui-btn ui-shadow ui-corner-all">Google Maps öffnen</a></div>
+            </fieldset>
+            
+            
+        </div>
+    </div>
+    
+    <div data-role="fieldcontain" class="ui-field-contain" id="ausleihen_form">
+        {{ form_start(borrow_form, {'attr': {'data-ajax': 'false'}}) }}
+            <div data-role="fieldcontain">
+                {{ form_label(borrow_form, 'Ausleihen von') }}
+                {{ form_widget(borrow_form.dateFrom.year) }}
+                {{ form_widget(borrow_form.dateFrom.month) }}
+                {{ form_widget(borrow_form.dateFrom.day) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ form_label(borrow_form, 'Ausleihen bis') }}
+                {{ form_widget(borrow_form.dateUntil.year) }}
+                {{ form_widget(borrow_form.dateUntil.month) }}
+                {{ form_widget(borrow_form.dateUntil.day) }}
+            </div>
+            {{ form_widget(borrow_form.submit, {'attr': {'class': 'blue_button'}, 'label' : 'Anfrage stellen'}) }}
+            {{ form_rest(borrow_form) }}
+        {{ form_end(borrow_form) }}
+    </div>
+{% endblock %}
+{% block javascriptyourself %}
+<script>
+var x = document.getElementById("map-canvas");
+var y = document.getElementById("gps");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        y.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    y.innerHTML = "Route berechnen";
+    var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+    mypos = latlon;
+    calcRoute();
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            y.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            y.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            y.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            y.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+var geocoder;
+
+function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  geocoder = new google.maps.Geocoder();
+  var address = '{{entity.user.address}}';
+  geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  var chicago = new google.maps.LatLng(51.165691, 10.451526000000058);
+  var mapOptions = {
+    zoom:13,
+    center: chicago
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+}
+
+function calcRoute() {
+  var start = mypos;
+  var end = '{{entity.user.address}}';
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.TravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+{% endblock %}
