@@ -1,0 +1,12 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <div data-role="fieldcontain">
+        <label for="name">{{ 'profile.show.username'|trans }}</label>
+        <input type="text" name="name" id="name" value="{{ user.username }}" readonly/>
+    </div>
+    <div data-role="fieldcontain">
+        <label for="name">{{ 'profile.show.email'|trans }}</label>
+        <input type="text" name="name" id="name" value="{{ user.email }}" readonly/>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% block headerTitle -%}{{ borrow.furniture.name }} - gemietet{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/res/css/bootstrap-rating.css" /><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">{% endblock %}
+{% block javascripts %}<script src="/res/js/bootstrap-rating.min.js"></script>{% endblock %}
+{% block body -%}
+    {{ form_start(form_bewerten, {'attr': {'data-ajax': 'false'}}) }}
+        <div data-role="fieldcontain">
+            {{ form_label(form_bewerten, 'Sterne') }}
+            {{ form_widget(form_bewerten.stars) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form_bewerten, 'Kommentar') }}
+            {{ form_widget(form_bewerten.comment) }}
+        </div>
+        {{ form_widget(form_bewerten.submit, {'attr': {'class': 'blue_button'}, 'label' : 'Absenden'}) }}
+        {{ form_rest(form_bewerten) }}
+    {{ form_end(form_bewerten) }}
+{% endblock %}

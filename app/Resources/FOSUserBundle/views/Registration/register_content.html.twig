@@ -1,0 +1,52 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block stylesheets %}<link rel="stylesheet" href="/res/css/page.css" />{% endblock %}
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    {{ form_start(form, {'attr': {'data-ajax': 'false'}}) }}
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'E-Mail-Adresse') }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Benutzername') }}
+            {{ form_widget(form.username) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Passwort') }}
+            {{ form_widget(form.plainPassword.first) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Passwort bestätigen') }}
+            {{ form_widget(form.plainPassword.second) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Vorname') }}
+            {{ form_widget(form.firstName) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Nachname') }}
+            {{ form_widget(form.lastName) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Straße') }}
+            {{ form_widget(form.street) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Hausnummer') }}
+            {{ form_widget(form.streetNumber) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'PLZ') }}
+            {{ form_widget(form.zip) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Ort') }}
+            {{ form_widget(form.town) }}
+        </div>
+        
+        <div>
+            <input type="submit" data-role="button" class="blue_button" value="{{ 'registration.submit'|trans }}" style="opacity:1;font-size:16px;text-indent:0"/>
+        </div>
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+</form>

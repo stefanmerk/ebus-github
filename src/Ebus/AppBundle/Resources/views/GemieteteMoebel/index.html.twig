@@ -1,0 +1,21 @@
+{% block headerTitle -%}Gemietete Möbel{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <ul data-role="listview" data-inset="true">
+        {% for borrow in borrows %}
+            <li class="ui-li-has-thumb">
+                <a href="{{ path('gemietete_details', { 'id':  borrow.id }) }}">
+                    <div class="list_image" style="background-image: url({% if borrow.furniture.image %}{{ borrow.furniture.webpath | imagine_filter('my_thumb')  }}{% else %}/res/img/keinBild.gif{% endif %}); {% if borrow.furniture.image %}background-size: cover{% else %}background-size: contain{% endif %}"></div>
+                    <h2>{{ borrow.furniture.name }}</h2>
+                    <p>{{  borrow.dateFrom|date("d.m.Y") }} - {{  borrow.dateUntil|date("d.m.Y") }}</p>
+                    <p>Mietdauer: {{  borrow.daysOfRental }} Tage</p>
+                    <p>Gesamtkosten: {{  borrow.price|number_format(2, ',', '.') }} €</p>
+                    <p><em>Vermieter: {{ borrow.lessor.firstName }} {{ borrow.lessor.lastName }}, Adresse: {{ borrow.lessor.address }}</em></p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+        
+    <!--a href="{{ path('furniture_new') }}" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-plus" data-theme="b">Vermieten</a--> 
+{% endblock %}

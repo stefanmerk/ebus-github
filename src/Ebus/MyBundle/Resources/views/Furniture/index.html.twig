@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Furniture lists</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>ID001</th>
+                <th>Nasme</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('furniture_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.image }}</td>
+                <td>{{ entity.price }}</td>
+                <td>{{ entity.active }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('furniture_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('furniture_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

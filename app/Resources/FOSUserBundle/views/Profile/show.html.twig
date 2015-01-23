@@ -1,0 +1,6 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+<a data-role="button" class="blue_button" href="{{path('fos_user_profile_edit') }}">Editieren</a>
+{% endblock fos_user_content %}

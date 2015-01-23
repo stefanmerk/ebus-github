@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+        <link rel="stylesheet" href="/res/css/page.css" />
+    </head>
+    <body>
+        <div data-role="page" data-quicklinks="true">
+            <!-- Header -->
+            {% block headerContainer %}
+                <div data-role="header" data-position="fixed">
+                    <h1>{% block headerTitle %}TITEL BITTE!{% endblock %}</h1>
+                    {% block headerLeftButton %}<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menü</a>{% endblock %}
+                    {% block headerButton %}{% endblock %}
+                </div>
+            {% endblock %}
+            <!--/end Header -->
+            
+            <!-- Navigation -->
+            <div data-role="panel" id="mypanel" data-display="push" data-theme="b">
+                <p class="panel-welcome">
+                    Willkommen {{app.user.fullName}}
+                    <a href="/logout" data-icon="delete" data-ajax="false" data-iconpos="notext" class="ui-li-aside">Logout</a>
+                </p>
+               <ul data-role="listview" data-count-theme="a">
+                    <li><a href="{{ path('home')}}">Dashboard</a></li>
+                    <li><a href="{{ path('furniture')}}">Möbel</a></li>
+                    <li><a href="{{ path('furniture_new')}}">Neue Möbel vermieten</a></li>
+                    <li><a href="{{ path('borrows') }}">Anfragen <!--span class="ui-li-count">12</span--></a></li>
+                    <li><a href="{{ path('my_furniture') }}">Meine Möbel</a></li>
+                    <li><a href="{{ path('vermietete') }}">Vermietete Möbel</a></li>
+                    <li><a href="{{ path('mieten') }}">Gemietete Möbel</a></li>
+                    <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                </ul>
+            </div>
+            <!--/end Navigation -->
+            {% block fullBody -%}
+                <div role="main" class="ui-content jqm-content">{% block body %}{% endblock %}</div>
+            {%- endblock %}
+        </div>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                //$.mobile.ajaxEnabled = false;
+                $.mobile.ajaxFormsEnabled = false;
+            });
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+        {% block javascripts %}{% endblock %}
+        <script type="text/javascript">
+            {% block javascriptext %}{% endblock %}
+        </script>
+        
+            {% block javascriptyourself %}{% endblock %}
+    </body>
+</html>

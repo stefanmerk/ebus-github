@@ -1,0 +1,33 @@
+{% block headerTitle -%}Neues Möbel anlegen{%- endblock %}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {{ form_start(form, {'attr': {'data-ajax': 'false'}}) }}
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Name') }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Beschreibung') }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Bild auswählen') }}
+            {{ form_widget(form.file) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Preis pro Tag') }}
+            {{ form_widget(form.price) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Kategorie') }}
+            {{ form_widget(form.category) }}
+        </div>
+        <div data-role="fieldcontain">
+            {{ form_label(form, 'Zustand') }}
+            {{ form_widget(form.condition) }}
+        </div>
+        {{ form_widget(form.submit, {'attr': {'class': 'blue_button'}, 'label' : 'Absenden'}) }}
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
